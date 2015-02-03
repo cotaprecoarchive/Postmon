@@ -7,7 +7,7 @@ use CotaPreco\Postmon\Cep;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
- * @coversDefaultClass CotaPreco\Postmon\CepNotFoundException
+ * @coversDefaultClass CotaPreco\Postmon\Exception\CepNotFoundException
  */
 class CepNotFoundExceptionTest extends TestCase
 {
