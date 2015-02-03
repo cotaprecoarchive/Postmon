@@ -9,7 +9,7 @@
         "postmon",
         "cep",
         "consulta",
-        "endereço"
+        "endereco"
     ],
     "require": {
         "php": "~5.5",
