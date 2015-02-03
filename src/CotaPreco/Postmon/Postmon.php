@@ -53,15 +53,9 @@ class Postmon implements PostmonInterface
             return new PartialAddress(
                 $json['estado_info']['nome'],
                 $json['cidade'],
-                isset($json['bairro'])
-                    ? $json['bairro']
-                    : null,
-                isset($json['logradouro'])
-                    ? $json['logradouro']
-                    : null,
-                isset($json['complemento'])
-                    ? $json['complemento']
-                    : null
+                isset($json['bairro']) ? $json['bairro'] : null,
+                isset($json['logradouro']) ? $json['logradouro'] : null,
+                isset($json['complemento']) ? $json['complemento'] : null
             );
         } catch (Exception $e) {
         }
