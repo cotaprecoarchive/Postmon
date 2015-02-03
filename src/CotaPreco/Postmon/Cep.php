@@ -15,6 +15,10 @@ class Cep
      */
     private $cep;
 
+    /**
+     * @throws InvalidArgumentException se o CEP `$cep` for inválido
+     * @param  string $cep
+     */
     public function __construct($cep)
     {
         $cep = (string) $cep;
