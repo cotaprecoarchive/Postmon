@@ -5,6 +5,12 @@
         "name": "Andrey K.",
         "email": "andreykvital@gmail.com"
     }],
+    "keywords": [
+        "postmon",
+        "cep",
+        "consulta",
+        "endereço"
+    ],
     "require": {
         "php": "~5.5",
         "respect/validation": "~0.6",
