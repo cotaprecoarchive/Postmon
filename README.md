@@ -16,10 +16,10 @@ Qualquer requisição na API sempre irá retornar um [`PartialAddress`](https://
 - Campos com o valor `null` (campos que não estão presentes na resposta da API) são omitidos da serialização para JSON;
 - `@throws CepNotFoundException` para qualquer resposta da API que o código de status HTTP seja diferente de **200** &mdash; [talvez você queira melhorar isso](https://github.com/CotaPreco/Postmon/pulls).
 
-## Sim, o composer.
+## Sim, o composer!
 ```
 $ composer require cotapreco/postmon dev-master
 ```
 
 ## License
-[MIT License](https://raw.githubusercontent.com/CotaPreco/Postmon/master/LICENSE) © Cota Preço, 2015.
+[MIT](https://raw.githubusercontent.com/CotaPreco/Postmon/master/LICENSE) © Cota Preço, 2015.
