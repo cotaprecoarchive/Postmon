@@ -2,13 +2,12 @@
 
 namespace CotaPreco\Postmon;
 
-use PHPUnit_Framework_TestCase as TestCase;
-use GuzzleHttp\Client          as GuzzleHttpClient;
-use GuzzleHttp\ClientInterface as HttpClientInterface;
-use GuzzleHttp\Subscriber\Mock as GuzzleMockSubscriber;
-use GuzzleHttp\Stream\Stream   as GuzzleStream;
-use GuzzleHttp\Message\Response;
 use CotaPreco\Postmon\Exception\CepNotFoundException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Subscriber\Mock;
+use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
@@ -18,38 +17,35 @@ use CotaPreco\Postmon\Exception\CepNotFoundException;
  */
 class PostmonTest extends TestCase
 {
-    public function testCreatePostmonClient()
-    {
-        $this->assertInstanceOf(
-            Postmon::class,
-            new Postmon($this->getMock(HttpClientInterface::class))
-        );
-    }
-
     /**
+     * @test
      * @covers ::findAddressByCep
      */
-    public function testFindAddressByCepThrowsCepNotFoundException()
+    public function throwsCepNotFoundException()
     {
         $this->setExpectedException(CepNotFoundException::class);
 
-        $client = new GuzzleHttpClient();
-        $client->getEmitter()->attach(new GuzzleMockSubscriber([
+        $client = new Client();
+
+        $client->getEmitter()->attach(new Mock([
             new Response(404)
         ]));
 
         $postmon = new Postmon($client);
+
         $postmon->findAddressByCep(new Cep('99999999'));
     }
 
     /**
+     * @test
      * @covers ::findAddressByCep
      */
-    public function testFindAddressByCepReturnsPartialAddress()
+    public function returnsPartialAddress()
     {
-        $client = new GuzzleHttpClient();
-        $client->getEmitter()->attach(new GuzzleMockSubscriber([
-            new Response(200, [], GuzzleStream::factory(
+        $client = new Client();
+
+        $client->getEmitter()->attach(new Mock([
+            new Response(200, [], Stream::factory(
                 json_encode([
                     'bairro'      => 'Cidade Salvador',
                     'cidade'      => 'Jacareí',
@@ -61,11 +57,9 @@ class PostmonTest extends TestCase
         ]));
 
         $postmon = new Postmon($client);
+
         $address = $postmon->findAddressByCep(new Cep('12312300'));
 
-        $this->assertInstanceOf(
-            PartialAddress::class,
-            $address
-        );
+        $this->assertInstanceOf(PartialAddress::class, $address);
     }
 }

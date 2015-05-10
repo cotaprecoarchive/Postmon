@@ -3,7 +3,6 @@
 namespace CotaPreco\Postmon;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use JsonSerializable;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
@@ -30,53 +29,61 @@ class PartialAddressTest extends TestCase
             'Complemento dos bobos'
         );
 
-        $this->assertInstanceOf(PartialAddress::class, $address);
         $this->address = $address;
     }
 
     /**
+     * @test
      * @covers ::getState
      */
-    public function testGetStateReturnsState()
+    public function getState()
     {
         $this->assertNotNull($this->address->getState());
     }
 
     /**
+     * @test
      * @covers ::getCity
      */
-    public function testGetCity()
+    public function getCity()
     {
         $this->assertNotNull($this->address->getCity());
     }
 
     /**
+     * @test
      * @covers ::getNeighborhood
-     * @covers ::getStreet
      */
-    public function testGetNeighborhoodAndStreet()
+    public function getNeighborhood()
     {
         $this->assertNotNull($this->address->getNeighborhood());
+    }
+
+    /**
+     * @test
+     * @covers ::getStreet
+     */
+    public function getStreet()
+    {
         $this->assertNotNull($this->address->getStreet());
     }
 
     /**
+     * @test
      * @covers ::getComplement
      */
-    public function testGetComplement()
+    public function getComplement()
     {
         $this->assertNotNull($this->address->getComplement());
     }
 
     /**
+     * @test
      * @covers ::jsonSerialize
      */
-    public function testPartialAddressCanBeSerializedToJson()
+    public function jsonSerialize()
     {
-        $this->assertInstanceOf(
-            JsonSerializable::class,
-            $this->address
-        );
+        $this->assertInstanceOf(\JsonSerializable::class, $this->address);
 
         $expectedKeys = [
             'neighborhood',
@@ -86,34 +93,33 @@ class PartialAddressTest extends TestCase
             'complement'
         ];
 
-        /* @var string[] $serializedPartialAddress */
-        $serializedPartialAddress = $this->address->jsonSerialize();
+        /* @var \string[] $jsonSerializedPartialAddress */
+        $jsonSerializedPartialAddress = $this->address->jsonSerialize();
 
         foreach ($expectedKeys as $expectedKey) {
-            $this->assertArrayHasKey(
-                $expectedKey,
-                $serializedPartialAddress
-            );
+            $this->assertArrayHasKey($expectedKey, $jsonSerializedPartialAddress);
         }
     }
 
     /**
+     * @test
      * @covers ::jsonSerialize
      */
-    public function testJsonSerializedPartialAddressOmitsNullKeys()
+    public function jsonSerializeOmitsNullKeys()
     {
         $address = new PartialAddress(
             'Estado dos bobos',
             'Cidade dos bobos'
         );
 
-        /* @var string[] $serializedPartialAddress */
-        $serializedPartialAddress = $address->jsonSerialize();
+        /* @var \string[] $jsonSerializedPartialAddress */
+        $jsonSerializedPartialAddress = $address->jsonSerialize();
 
-        $this->assertArrayHasKey('city', $serializedPartialAddress);
-        $this->assertArrayHasKey('state', $serializedPartialAddress);
-        $this->assertArrayNotHasKey('street', $serializedPartialAddress);
-        $this->assertArrayNotHasKey('complement', $serializedPartialAddress);
-        $this->assertArrayNotHasKey('neighborhood', $serializedPartialAddress);
+        $this->assertArrayHasKey('city', $jsonSerializedPartialAddress);
+        $this->assertArrayHasKey('state', $jsonSerializedPartialAddress);
+
+        $this->assertArrayNotHasKey('street', $jsonSerializedPartialAddress);
+        $this->assertArrayNotHasKey('complement', $jsonSerializedPartialAddress);
+        $this->assertArrayNotHasKey('neighborhood', $jsonSerializedPartialAddress);
     }
 }

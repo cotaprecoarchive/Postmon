@@ -2,8 +2,8 @@
 
 namespace CotaPreco\Postmon\Exception;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use CotaPreco\Postmon\Cep;
+use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
@@ -16,6 +16,7 @@ class CepNotFoundExceptionTest extends TestCase
      */
     public function testNotFoundForCep()
     {
+        /* @var \PHPUnit_Framework_MockObject_MockObject|Cep $cep */
         $cep = $this->getMockBuilder(Cep::class)
                     ->disableOriginalConstructor()
                     ->getMock();
