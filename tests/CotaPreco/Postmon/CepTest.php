@@ -3,7 +3,6 @@
 namespace CotaPreco\Postmon;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use InvalidArgumentException;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
@@ -12,35 +11,38 @@ use InvalidArgumentException;
 class CepTest extends TestCase
 {
     /**
+     * @test
      * @dataProvider provideInvalidCeps
      * @param string $cep
      */
-    public function testCreateCepWithInvalidPostalCodeThrowsException($cep)
+    public function newCepThrowsInvalidArgument($cep)
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->setExpectedException(\InvalidArgumentException::class);
+
         new Cep($cep);
     }
 
     /**
+     * @test
      * @covers ::fromString
      */
-    public function testCreateCepFromString()
+    public function fromString()
     {
         $this->assertInstanceOf(Cep::class, Cep::fromString('12312300'));
     }
 
     /**
+     * @test
      * @covers ::fromString
      * @covers ::__toString
      */
-    public function testCepCastsToString()
+    public function castsToString()
     {
-        $cep = '12312300';
-        $this->assertSame($cep, (string) Cep::fromString($cep));
+        $this->assertSame('12312300', (string) Cep::fromString('12312300'));
     }
 
     /**
-     * @return string[][]
+     * @return \string[][]
      */
     public function provideInvalidCeps()
     {
@@ -48,7 +50,9 @@ class CepTest extends TestCase
             ['--------'],
             ['1234567.8'],
             ['#123455678'],
-            ['12345']
+            ['12345'],
+            [''],
+            [null]
         ];
     }
 }
