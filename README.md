@@ -14,7 +14,7 @@ Qualquer requisição na API sempre irá retornar um [`PartialAddress`](https://
 
 - **PartialAddress** é serializável para JSON *`implements JsonSerializable`*, então: `json_encode($address)` é absolutamente possível;
 - Campos com o valor `null` (campos que não estão presentes na resposta da API) são omitidos da serialização para JSON;
-- `@throws CepNotFoundException` para qualquer resposta da API que o código de status HTTP seja diferente de **200** &mdash; [talvez você queira melhorar isso daqui](https://github.com/CotaPreco/Postmon/pulls).
+- `@throws CepNotFoundException` para qualquer resposta da API que o código de status HTTP seja diferente de **200** &mdash; [talvez você queira melhorar isso](https://github.com/CotaPreco/Postmon/pulls).
 
 ## Sim, o composer.
 ```
