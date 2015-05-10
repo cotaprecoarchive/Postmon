@@ -1,4 +1,5 @@
 language: php
+
 php:
     - 5.5
     - 5.6
@@ -8,5 +9,15 @@ before_script:
     - travis_retry composer install
 
 script:
-    - make phpcs
+    - make cs
     - make tests
+
+notifications:
+    email: false
+    irc:
+        skip_join: true
+        use_notice: true
+        channels:
+            - "chat.freenode.net#cotapreco"
+        template:
+            - "%{repository} (%{commit} - %{author}), %{build_url} — %{result}"
