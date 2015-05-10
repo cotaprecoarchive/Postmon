@@ -11,13 +11,3 @@ before_script:
 script:
     - make cs
     - make tests
-
-notifications:
-    email: false
-    irc:
-        skip_join: true
-        use_notice: true
-        channels:
-            - "irc.freenode.org#cotapreco"
-        template:
-            - "%{repository} (%{commit} - %{author}), %{build_url} — %{result}"
