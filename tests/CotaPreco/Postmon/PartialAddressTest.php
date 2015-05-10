@@ -21,15 +21,13 @@ class PartialAddressTest extends TestCase
      */
     protected function setUp()
     {
-        $address = new PartialAddress(
+        $this->address = new PartialAddress(
             'Estado dos bobos',
             'Cidade dos bobos',
             'Bairro dos bobos',
             'Rua dos bobos',
             'Complemento dos bobos'
         );
-
-        $this->address = $address;
     }
 
     /**

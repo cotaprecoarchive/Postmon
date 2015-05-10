@@ -18,8 +18,8 @@ class CepNotFoundExceptionTest extends TestCase
     {
         /* @var \PHPUnit_Framework_MockObject_MockObject|Cep $cep */
         $cep = $this->getMockBuilder(Cep::class)
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->assertInstanceOf(
             CepNotFoundException::class,
