@@ -7,8 +7,7 @@ use InvalidArgumentException;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
- * @covers CotaPreco\Postmon\Cep
- * @covers ::__construct
+ * @coversDefaultClass CotaPreco\Postmon\Cep
  */
 class CepTest extends TestCase
 {
