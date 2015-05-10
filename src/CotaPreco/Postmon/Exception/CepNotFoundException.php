@@ -3,12 +3,11 @@
 namespace CotaPreco\Postmon\Exception;
 
 use CotaPreco\Postmon\Cep;
-use Exception;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
  */
-class CepNotFoundException extends Exception implements
+class CepNotFoundException extends \Exception implements
     ExceptionInterface
 {
     /**
@@ -17,9 +16,6 @@ class CepNotFoundException extends Exception implements
      */
     public static function forCep(Cep $cep)
     {
-        return new self(sprintf(
-            'CEP `%s` não encontrado',
-            (string) $cep
-        ));
+        return new self(sprintf('CEP `%s` não encontrado', (string) $cep));
     }
 }

@@ -2,12 +2,10 @@
 
 namespace CotaPreco\Postmon;
 
-use JsonSerializable;
-
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
  */
-class PartialAddress implements JsonSerializable
+class PartialAddress implements \JsonSerializable
 {
     /**
      * @var string
@@ -96,8 +94,7 @@ class PartialAddress implements JsonSerializable
     }
 
     /**
-     * @see JsonSerializable::jsonSerialize
-     * @return string[]
+     * @return \string[]
      */
     public function jsonSerialize()
     {

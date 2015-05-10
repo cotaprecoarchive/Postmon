@@ -2,10 +2,10 @@
 
 namespace CotaPreco\Postmon;
 
-use GuzzleHttp\Client          as GuzzleHttpClient;
-use GuzzleHttp\ClientInterface as HttpClientInterface;
 use CotaPreco\Postmon\Exception\CepNotFoundException;
-use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Message\Response;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
@@ -15,23 +15,29 @@ class Postmon implements PostmonInterface
     /**
      * @var string
      */
-    const API_VERSION      = 'v1';
+    const API_VERSION = 'v1';
+
+    /**
+     * @var string
+     */
     const API_ENDPOINT_URL = 'http://api.postmon.com.br/{version}';
 
     /**
-     * @var HttpClientInterface
+     * @var ClientInterface
      */
     private $httpClient;
 
     /**
-     * @param HttpClientInterface $httpClient
+     * @param ClientInterface $httpClient
      */
-    public function __construct(HttpClientInterface $httpClient = null)
+    public function __construct(ClientInterface $httpClient = null)
     {
-        $this->httpClient = $httpClient ?: new GuzzleHttpClient([
-            'base_url' => [self::API_ENDPOINT_URL, [
-                'version' => self::API_VERSION
-            ]]
+        $this->httpClient = $httpClient ?: new Client([
+            'base_url' => [
+                self::API_ENDPOINT_URL, [
+                    'version' => self::API_VERSION
+                ]
+            ]
         ]);
     }
 
@@ -41,11 +47,8 @@ class Postmon implements PostmonInterface
     public function findAddressByCep(Cep $cep)
     {
         try {
-            /* @var GuzzleHttp\Message\Response $response */
-            $response = $this->httpClient->get(sprintf(
-                '/cep/%s',
-                (string) $cep
-            ));
+            /* @var Response $response */
+            $response = $this->httpClient->get('/cep/' . (string) $cep);
 
             /* @var string[][] $json */
             $json = $response->json();
@@ -57,7 +60,7 @@ class Postmon implements PostmonInterface
                 isset($json['logradouro']) ? $json['logradouro'] : null,
                 isset($json['complemento']) ? $json['complemento'] : null
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
         }
 
         throw CepNotFoundException::forCep($cep);

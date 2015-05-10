@@ -8,8 +8,8 @@ namespace CotaPreco\Postmon;
 interface PostmonInterface
 {
     /**
-     * @throws CepNotFoundException se o CEP `$cep` não constar na base de dados
-     * do postmon
+     * @throws CepNotFoundException se o CEP `$cep` não for encontrado na base
+     * de dados do Postmon
      *
      * @param  Cep $cep
      * @return PartialAddress
