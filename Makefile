@@ -1,6 +1,6 @@
 .PHONY: tests
 
-cs:
+check-cs:
 	@./vendor/bin/phpcs --standard=PSR2 src tests
 
 tests:

@@ -9,5 +9,5 @@ before_script:
     - travis_retry composer install
 
 script:
-    - make cs
+    - make check-cs
     - make tests
