@@ -33,7 +33,7 @@ class PostmonTest extends TestCase
 
         $postmon = new Postmon($client);
 
-        $postmon->findAddressByCep(new Cep('99999999'));
+        $postmon->findAddressByCep(Cep::fromString('99999999'));
     }
 
     /**
@@ -58,7 +58,7 @@ class PostmonTest extends TestCase
 
         $postmon = new Postmon($client);
 
-        $address = $postmon->findAddressByCep(new Cep('12312300'));
+        $address = $postmon->findAddressByCep(Cep::fromString('12312300'));
 
         $this->assertInstanceOf(PartialAddress::class, $address);
     }

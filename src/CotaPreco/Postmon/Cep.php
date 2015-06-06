@@ -2,13 +2,12 @@
 
 namespace CotaPreco\Postmon;
 
-use Respect\Validation\Validator as RespectValidator;
-use InvalidArgumentException;
+use Respect\Validation\Validator;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
  */
-class Cep
+final class Cep
 {
     /**
      * @var string
@@ -16,30 +15,34 @@ class Cep
     private $cep;
 
     /**
-     * @throws InvalidArgumentException se o CEP `$cep` for inválido
-     * @param  string $cep
+     * @param string $cep
      */
-    public function __construct($cep)
+    private function __construct($cep)
     {
-        $cep = (string) $cep;
-
-        if (!RespectValidator::postalCode('BR')->validate($cep)) {
-            throw new InvalidArgumentException(sprintf(
-                'CEP `%s` inválido',
-                $cep
-            ));
-        }
-
-        $this->cep = $cep;
+        $this->cep = (string) $cep;
     }
 
     /**
-     * @param  string $cep
+     * @throws \InvalidArgumentException se o código de endereçamento postal (CEP)
+     * `$cepString` for inválido
+     *
+     * @param  string $cepString
      * @return self
      */
-    public static function fromString($cep)
+    public static function fromString($cepString)
     {
-        return new Cep($cep);
+        $cepString = (string) $cepString;
+
+        if (! Validator::postalCode('BR')->validate($cepString)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'O CEP `%s` é inválido',
+                    $cepString
+                )
+            );
+        }
+
+        return new self($cepString);
     }
 
     /**

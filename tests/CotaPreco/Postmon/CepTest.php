@@ -15,11 +15,11 @@ class CepTest extends TestCase
      * @dataProvider provideInvalidCeps
      * @param string $cep
      */
-    public function newCepThrowsInvalidArgument($cep)
+    public function fromStringThrowsInvalidArgument($cep)
     {
         $this->setExpectedException(\InvalidArgumentException::class);
 
-        new Cep($cep);
+        Cep::fromString($cep);
     }
 
     /**
@@ -28,17 +28,11 @@ class CepTest extends TestCase
      */
     public function fromString()
     {
-        $this->assertInstanceOf(Cep::class, Cep::fromString('12312300'));
-    }
+        $cep = Cep::fromString('12312300');
 
-    /**
-     * @test
-     * @covers ::fromString
-     * @covers ::__toString
-     */
-    public function castsToString()
-    {
-        $this->assertSame('12312300', (string) Cep::fromString('12312300'));
+        $this->assertInstanceOf(Cep::class, $cep);
+        $this->assertEquals('12312300', (string) $cep);
+
     }
 
     /**
@@ -47,7 +41,6 @@ class CepTest extends TestCase
     public function provideInvalidCeps()
     {
         return [
-            ['--------'],
             ['1234567.8'],
             ['#123455678'],
             ['12345'],
