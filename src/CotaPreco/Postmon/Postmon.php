@@ -70,9 +70,9 @@ class Postmon implements PostmonInterface
     {
         try {
             /* @var Response $response */
-            $response = $this->httpClient->get('/cep/' . (string) $cep);
+            $response = $this->httpClient->get('/cep/' . $cep);
 
-            /* @var string[][] $json */
+            /* @var \string[][] $json */
             $json = $response->json();
 
             return new PartialAddress(
