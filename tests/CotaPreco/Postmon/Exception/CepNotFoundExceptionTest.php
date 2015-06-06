@@ -7,14 +7,13 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
- * @coversDefaultClass CotaPreco\Postmon\Exception\CepNotFoundException
  */
 class CepNotFoundExceptionTest extends TestCase
 {
     /**
-     * @covers ::forCep
+     * @test
      */
-    public function testNotFoundForCep()
+    public function forCep()
     {
         $this->assertInstanceOf(
             CepNotFoundException::class,
