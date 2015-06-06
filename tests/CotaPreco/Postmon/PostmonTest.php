@@ -11,17 +11,13 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
- * @coversDefaultClass CotaPreco\Postmon\Postmon
- * @covers ::__construct
- * @covers ::<!public>
  */
 class PostmonTest extends TestCase
 {
     /**
      * @test
-     * @covers ::findAddressByCep
      */
-    public function throwsCepNotFoundException()
+    public function findAddressByCepThrowsCepNotFound()
     {
         $this->setExpectedException(CepNotFoundException::class);
 
@@ -38,9 +34,8 @@ class PostmonTest extends TestCase
 
     /**
      * @test
-     * @covers ::findAddressByCep
      */
-    public function returnsPartialAddress()
+    public function findAddressByCep()
     {
         $client = new Client();
 
@@ -49,7 +44,9 @@ class PostmonTest extends TestCase
                 json_encode([
                     'bairro'      => 'Cidade Salvador',
                     'cidade'      => 'Jacareí',
-                    'estado_info' => ['nome' => 'São Paulo'],
+                    'estado_info' => [
+                        'nome' => 'São Paulo'
+                    ],
                     'logradouro'  => 'Rua Mabito Shoji',
                     'complemento' => null
                 ])

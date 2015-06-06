@@ -6,7 +6,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
- * @coversDefaultClass CotaPreco\Postmon\Cep
  */
 class CepTest extends TestCase
 {
@@ -24,7 +23,6 @@ class CepTest extends TestCase
 
     /**
      * @test
-     * @covers ::fromString
      */
     public function fromString()
     {
