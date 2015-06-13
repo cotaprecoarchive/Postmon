@@ -30,7 +30,6 @@ class CepTest extends TestCase
 
         $this->assertInstanceOf(Cep::class, $cep);
         $this->assertEquals('12312300', (string) $cep);
-
     }
 
     /**

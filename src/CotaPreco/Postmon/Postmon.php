@@ -28,22 +28,13 @@ use CotaPreco\Postmon\Exception\CepNotFoundException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\Response;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * @author Andrey K. Vital <andreykvital@gmail.com>
  */
 class Postmon implements PostmonInterface
 {
-    /**
-     * @var string
-     */
-    const API_VERSION = 'v1';
-
-    /**
-     * @var string
-     */
-    const API_ENDPOINT_URL = 'http://api.postmon.com.br/{version}';
-
     /**
      * @var ClientInterface
      */
@@ -69,11 +60,12 @@ class Postmon implements PostmonInterface
     public function findAddressByCep(Cep $cep)
     {
         try {
-            /* @var Response $response */
-            $response = $this->httpClient->get('/cep/' . $cep);
+            $request = new Request('GET', 'http://api.postmon.com.br/v1/cep/' . $cep);
+
+            $response = $this->httpClient->send($request);
 
             /* @var \string[][] $json */
-            $json = $response->json();
+            $json = json_decode($response->getBody(), true);
 
             return new PartialAddress(
                 $json['estado_info']['nome'],

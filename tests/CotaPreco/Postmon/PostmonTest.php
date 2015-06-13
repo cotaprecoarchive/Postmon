@@ -4,9 +4,9 @@ namespace CotaPreco\Postmon;
 
 use CotaPreco\Postmon\Exception\CepNotFoundException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -21,11 +21,13 @@ class PostmonTest extends TestCase
     {
         $this->setExpectedException(CepNotFoundException::class);
 
-        $client = new Client();
-
-        $client->getEmitter()->attach(new Mock([
+        $handler = new MockHandler([
             new Response(404)
-        ]));
+        ]);
+
+        $client = new Client([
+            'handler' => HandlerStack::create($handler)
+        ]);
 
         $postmon = new Postmon($client);
 
@@ -37,21 +39,21 @@ class PostmonTest extends TestCase
      */
     public function findAddressByCep()
     {
-        $client = new Client();
+        $handler = new MockHandler([
+            new Response(200, [], json_encode([
+                'bairro'      => 'Cidade Salvador',
+                'cidade'      => 'Jacareí',
+                'estado_info' => [
+                    'nome' => 'São Paulo'
+                ],
+                'logradouro'  => 'Rua Mabito Shoji',
+                'complemento' => null
+            ]))
+        ]);
 
-        $client->getEmitter()->attach(new Mock([
-            new Response(200, [], Stream::factory(
-                json_encode([
-                    'bairro'      => 'Cidade Salvador',
-                    'cidade'      => 'Jacareí',
-                    'estado_info' => [
-                        'nome' => 'São Paulo'
-                    ],
-                    'logradouro'  => 'Rua Mabito Shoji',
-                    'complemento' => null
-                ])
-            ))
-        ]));
+        $client = new Client([
+            'handler' => HandlerStack::create($handler)
+        ]);
 
         $postmon = new Postmon($client);
 
