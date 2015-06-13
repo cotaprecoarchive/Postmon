@@ -1,11 +1,14 @@
 {
     "name": "cotapreco/postmon",
-    "description": "A simple client for Postmon API written in PHP :-)",
+    "description": "It's just another client for Postmon API",
     "license": "MIT",
-    "authors": [{
-        "name": "Andrey K. Vital",
-        "email": "andreykvital@gmail.com"
-    }],
+    "authors": [
+        {
+            "name": "Andrey K. Vital",
+            "email": "andreykvital@gmail.com",
+            "homepage": "https://github.com/CentaurWarchief"
+        }
+    ],
     "keywords": [
         "postmon",
         "cep",
@@ -14,12 +17,12 @@
     ],
     "require": {
         "php": "~5.5",
-        "respect/validation": "~0.6",
-        "guzzlehttp/guzzle": "~5.1"
+        "respect/validation": "0.9.3",
+        "guzzlehttp/guzzle": "6.0.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.4",
-        "squizlabs/php_codesniffer": "~2.1"
+        "phpunit/phpunit": "4.7.3",
+        "squizlabs/php_codesniffer": "2.3.2"
     },
     "autoload": {
         "psr-0": {
